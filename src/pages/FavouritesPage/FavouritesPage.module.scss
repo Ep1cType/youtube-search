@@ -1,0 +1,35 @@
+.favouritesPage {
+  min-height: calc(100vh - 128px);
+
+  &__content {
+
+  }
+
+  &__header {
+
+  }
+}
+
+.header {
+  &__title {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+}
+
+.favouritesItem {
+  &__change {
+    cursor: pointer;
+    color: #40a9ff;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+  &__delete {
+    cursor: pointer;
+    color: red;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}

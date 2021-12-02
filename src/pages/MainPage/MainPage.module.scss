@@ -1,0 +1,20 @@
+.mainPage {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -64px;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.search {
+  &__title {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+}
