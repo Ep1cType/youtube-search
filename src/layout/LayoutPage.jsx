@@ -144,10 +144,10 @@ const LayoutPage = () => {
                       setSearchValue={setSearchValue}/>
           </Route>
           <Route exact={true} path="/favourites">
-            <FavouritesPage handleSearch={handleSearch} setSearchValue={setSearchValue}  handleEditMode={handleEditMode}/>
+            <FavouritesPage handleSearch={handleSearch}  handleEditMode={handleEditMode}/>
           </Route>
           <Route exact={true} path="/result">
-            <ResultPage tooltipVisible={tooltipVisible} setTooltipVisible={setTooltipVisible} onSearch={onSearch} orderBy={orderBy} maxResult={maxResult} showModal={showModal} searchValue={searchValue} setSearchValue={setSearchValue}/>
+            <ResultPage tooltipVisible={tooltipVisible} onSearch={onSearch} orderBy={orderBy} maxResult={maxResult} showModal={showModal} searchValue={searchValue} setSearchValue={setSearchValue}/>
           </Route>
         </Content>
       </>}
@@ -155,7 +155,7 @@ const LayoutPage = () => {
              onCancel={handleCancel}>
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
           {editMode ? <h3>Изменить запрос</h3> : <h3>Сохранить запрос</h3>}
-          <div style={{display: "flex", flexDirection: "column", alignItems: "flex-start", marginBottom: 24}}>
+          <div className={s.searchValue} style={{display: "flex", flexDirection: "column", alignItems: "flex-start", marginBottom: 24}}>
             <label>Запрос:</label>
             <Input className={s.modalInput} onChange={(e) => setSearchValue(e.target.value)} disabled={!editMode} value={searchValue}/>
           </div>

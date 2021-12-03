@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {videosActions} from "../../store/videos/videosActions";
 import {useHistory} from "react-router-dom";
 
-const FavouritesPage = ({handleEditMode, setSearchValue, handleSearch}) => {
+const FavouritesPage = ({handleEditMode, handleSearch}) => {
   const {favouriteList} = useSelector(state => state.video);
   const {user} = useSelector(state => state.auth);
   const history = useHistory();

@@ -14,7 +14,6 @@ const VideoItem = ({viewType, videoInfo}) => {
         </p>
         <div className={viewType === 'row' ? s.videoItem__desc : s.second__desc}>
           <p className={s.videoItem__channel}>{videoInfo.channelTitle}</p>
-          <span className={s.videoItem__views}>786 тысяч просмотров</span>
         </div>
       </div>
     </li>

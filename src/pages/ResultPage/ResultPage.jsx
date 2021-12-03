@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import cn from 'classnames';
 
-import s from './ResultPage.module.scss';
+import s from "./ResultPage.module.scss";
 import {Input, Tooltip} from "antd";
 import {AppstoreOutlined, HeartOutlined, UnorderedListOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
@@ -12,13 +11,11 @@ import {videosActions} from "../../store/videos/videosActions";
 
 const { Search } = Input;
 
-const ResultPage = ({searchValue, setSearchValue, showModal, maxResult, orderBy, onSearch, setTooltipVisible, tooltipVisible}) => {
+const ResultPage = ({searchValue, setSearchValue, showModal, maxResult, orderBy, onSearch, tooltipVisible}) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {isLoading, isError, videoList, totalCount} = useSelector(state => state.video)
 
-
-  // const [visible, setVisible] = useState(false);
   const [viewType, setViewType] = useState('row');
 
   useEffect(() => {
@@ -46,13 +43,6 @@ const ResultPage = ({searchValue, setSearchValue, showModal, maxResult, orderBy,
       </Tooltip>
     </>
   );
-
-
-
-  // const onSearch = value => {
-  //   console.log(value);
-  // }
-
 
   return (
     <div className={s.resultPage}>
