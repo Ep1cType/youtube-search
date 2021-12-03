@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import s from "./LoginPage.module.scss";
 
@@ -8,20 +8,20 @@ import {Input, Form, Button, Checkbox} from "antd";
 import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "../../store/auth/authActions";
+import {videosActions} from "../../store/videos/videosActions";
 
 const LoginPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const {isLoading, isAuth, isError} = useSelector(state => state.auth)
+  const {isLoading, isAuth, isError} = useSelector(state => state.auth);
+
+  useEffect(() => {
+    dispatch(videosActions.setIsError(""));
+  }, []);
 
   const onFinish = (values) => {
-    console.log("Success:", values);
     const {username, password} = values;
-    dispatch(authActions.login({history, username, password}))
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    dispatch(authActions.login({history, username, password}));
   };
 
   return (
@@ -31,13 +31,12 @@ const LoginPage = () => {
           <img src={logo} alt="sibdev" className={s.logo__img}/>
         </div>
         <h2>Вход</h2>
-        {isError}
+        {isError && <span>{isError}</span>}
         <Form
           name="basic"
           initialValues={{remember: true}}
           layout={"vertical"}
           onFinish={onFinish}
-          // onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item
@@ -47,7 +46,6 @@ const LoginPage = () => {
           >
             <Input/>
           </Form.Item>
-
           <Form.Item
             label="Пароль"
             name="password"
@@ -55,7 +53,6 @@ const LoginPage = () => {
           >
             <Input.Password/>
           </Form.Item>
-
           <Form.Item wrapperCol={{offset: 8, span: 16}}>
             <Button loading={isLoading} type="primary" htmlType="submit">
               Войти

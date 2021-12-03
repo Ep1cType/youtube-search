@@ -14,6 +14,8 @@
   }
 
   &__nav {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
   }
 }
@@ -52,6 +54,21 @@
 
 .nav {
   &__settings {
+    display: flex;
 
+    &__selected {
+      //color: #000000;
+    }
+
+    &__row {
+      font-size: 24px;
+      margin-right: 18px;
+      //color: #E5E5E5;
+      color: #40a9ff;
+    }
+    &__grid {
+      font-size: 24px;
+      //color: #E5E5E5;
+    }
   }
 }

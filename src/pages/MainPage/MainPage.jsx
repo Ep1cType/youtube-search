@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Input, Space } from 'antd';
 
 
@@ -10,21 +10,20 @@ import {videosActions} from "../../store/videos/videosActions";
 
 const { Search } = Input;
 
-const MainPage = ({searchValue, setSearchValue, maxResult, setMaxResult}) => {
+const MainPage = ({searchValue, setSearchValue, maxResult, setMaxResult, onSearch}) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {isLoading,isError} = useSelector(state => state.video)
+  const {isLoading, isError} = useSelector(state => state.video)
 
-
-
-  const onSearch = value => {
-    dispatch(videosActions.fetchVideo(value, maxResult, history))
-  }
+  useEffect(() => {
+    dispatch(videosActions.setIsError(""));
+  }, [])
 
   return (
     <div className={s.mainPage} >
       <div className={s.mainPage__content}>
         <h1 className={s.search__title}>Поиск видео</h1>
+        {isError && <span>{isError}</span>}
         <Search
           placeholder="Что хотите посмотреть ?"
           enterButton="Найти"

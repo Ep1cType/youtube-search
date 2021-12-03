@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
+import cn from 'classnames';
 
 import s from './ResultPage.module.scss';
 import {Input, Tooltip} from "antd";
-import {HeartOutlined} from "@ant-design/icons";
+import {AppstoreOutlined, HeartOutlined, UnorderedListOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import VideoList from "../../components/VideoList/VideoList";
 import VideoItem from "../../components/VideoItem/VideoItem";
@@ -11,7 +12,7 @@ import {videosActions} from "../../store/videos/videosActions";
 
 const { Search } = Input;
 
-const ResultPage = ({searchValue, setSearchValue, showModal, maxResult, orderBy}) => {
+const ResultPage = ({searchValue, setSearchValue, showModal, maxResult, orderBy, onSearch}) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {isLoading, isError, videoList, totalCount} = useSelector(state => state.video)
@@ -48,9 +49,9 @@ const ResultPage = ({searchValue, setSearchValue, showModal, maxResult, orderBy}
 
 
 
-  const onSearch = value => {
-    console.log(value);
-  }
+  // const onSearch = value => {
+  //   console.log(value);
+  // }
 
 
   return (
@@ -76,8 +77,8 @@ const ResultPage = ({searchValue, setSearchValue, showModal, maxResult, orderBy}
               <span className={s.result__desc__count}>{totalCount}</span>
             </div>
             <div className={s.nav__settings}>
-              <button onClick={() => setViewType('row')}>row</button>
-              <button onClick={() => setViewType('card')}>card</button>
+              <UnorderedListOutlined onClick={() => setViewType('row')} style={{color: viewType === 'row' ? "#000000" : "#E5E5E5", fontSize: 24, marginRight: 18}} />
+              <AppstoreOutlined onClick={() => setViewType('card')} style={{color: viewType === 'card' ? "#000000" : "#E5E5E5", fontSize: 24}} />
             </div>
           </div>
           {!isLoading
@@ -92,7 +93,6 @@ const ResultPage = ({searchValue, setSearchValue, showModal, maxResult, orderBy}
               LOADING...
             </div>
           }
-
         </div>
       </div>
     </div>

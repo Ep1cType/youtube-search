@@ -102,12 +102,13 @@ const LayoutPage = () => {
     setMaxResult(value);
   };
 
+  const onSearch = value => {
+    dispatch(videosActions.fetchVideo(value, maxResult, orderBy, history))
+  }
 
-
-
-  const handleChoice = (selectedKeys) => {
-    history.push(selectedKeys);
-  };
+  // const handleChoice = (selectedKeys) => {
+  //   history.push(selectedKeys);
+  // };
 
   return (
     <Layout>
@@ -127,14 +128,14 @@ const LayoutPage = () => {
         </Header>
         <Content style={{padding: "0 50px", marginTop: 64}}>
           <Route exact={true} path="/">
-            <MainPage maxResult={maxResult} setMaxResult={setMaxResult} searchValue={searchValue}
+            <MainPage onSearch={onSearch} maxResult={maxResult} setMaxResult={setMaxResult} searchValue={searchValue}
                       setSearchValue={setSearchValue}/>
           </Route>
           <Route exact={true} path="/favourites">
             <FavouritesPage setSearchValue={setSearchValue}  handleEditMode={handleEditMode}/>
           </Route>
           <Route exact={true} path="/result">
-            <ResultPage orderBy={orderBy} maxResult={maxResult} showModal={showModal} searchValue={searchValue} setSearchValue={setSearchValue}/>
+            <ResultPage onSearch={onSearch} orderBy={orderBy} maxResult={maxResult} showModal={showModal} searchValue={searchValue} setSearchValue={setSearchValue}/>
           </Route>
         </Content>
       </>}

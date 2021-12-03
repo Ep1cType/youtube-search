@@ -16,18 +16,19 @@ export const videosActions = {
   editingFavourite: (payload) => ({type: EDIT_FAVOURITE, payload}),
   setFavouriteList: (payload) => ({type: SET_FAVOURITE_LIST, payload}),
   setIsError: (payload) => ({type: SET_IS_ERROR, payload}),
-  fetchVideo: (searchValue, maxResult, history) => async (dispatch) => {
+  fetchVideo: (searchValue, maxResult, orderBy, history) => async (dispatch) => {
     try {
       debugger;
       dispatch(videosActions.setIsError(""));
       debugger
       dispatch(videosActions.setIsLoading(true));
-      const response = await VideoService.getVideoList(searchValue, maxResult);
+      const response = await VideoService.getVideoList(searchValue, maxResult, orderBy);
       console.log(response.data);
       dispatch(videosActions.setTotalCount(response.data.pageInfo.totalResults))
       dispatch(videosActions.setVideoList(response.data.items))
       history.push('/result')
     } catch (e) {
+      dispatch(videosActions.setIsError("Ошибка обращения к серверу"))
     } finally {
       dispatch(videosActions.setIsLoading(false))
     }

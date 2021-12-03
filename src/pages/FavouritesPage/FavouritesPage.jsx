@@ -15,6 +15,7 @@ const FavouritesPage = ({handleEditMode, setSearchValue}) => {
 
   useEffect(() => {
     dispatch(videosActions.fetchFavouriteList(user));
+    dispatch(videosActions.setIsError(""));
   }, []);
 
   const handleDelete = (id) => {
@@ -53,7 +54,7 @@ const FavouritesPage = ({handleEditMode, setSearchValue}) => {
                     key="delete"
                   >Удалить
                   </span>]}>
-              <span onClick={() => handleSearch(item)}>{item.name}</span>
+              <span className={s.favouritesItem__name} onClick={() => handleSearch(item)}>{item.name}</span>
             </List.Item>
           }
         />
