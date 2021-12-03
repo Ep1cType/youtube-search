@@ -7,25 +7,22 @@ import {useDispatch, useSelector} from "react-redux";
 import {videosActions} from "../../store/videos/videosActions";
 import {useHistory} from "react-router-dom";
 
-const FavouritesPage = ({handleEditMode, setSearchValue}) => {
+const FavouritesPage = ({handleEditMode, setSearchValue, handleSearch}) => {
   const {favouriteList} = useSelector(state => state.video);
   const {user} = useSelector(state => state.auth);
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(videosActions.fetchFavouriteList(user));
+    if(!favouriteList.length) {
+      dispatch(videosActions.fetchFavouriteList(user));
+    }
     dispatch(videosActions.setIsError(""));
   }, []);
 
   const handleDelete = (id) => {
     dispatch(videosActions.deleteFavour(id));
   };
-
-  const handleSearch = (item) => {
-    setSearchValue(item.search)
-    history.push("/result")
-  }
 
   return (
     <div className={s.favouritesPage}>

@@ -29,6 +29,7 @@ const LayoutPage = () => {
   const [modalError, setModalError] = useState("");
   const [orderBy, setOrderBy] = useState("relevance");
   const [editMode, setEditMode] = useState(false);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
 
   useEffect(() => {
     debugger;
@@ -84,6 +85,10 @@ const LayoutPage = () => {
         orderBy
       }
       setIsModalVisible(false);
+      setTooltipVisible(true);
+      setTimeout(() => {
+        setTooltipVisible(false)
+      }, 3000)
       setFavouriteName("");
       setMaxResult(12);
       dispatch(videosActions.createFavourite(favourite))
@@ -103,12 +108,19 @@ const LayoutPage = () => {
   };
 
   const onSearch = value => {
+    debugger;
     dispatch(videosActions.fetchVideo(value, maxResult, orderBy, history))
   }
 
-  // const handleChoice = (selectedKeys) => {
-  //   history.push(selectedKeys);
-  // };
+  const handleSearch = (item) => {
+    const {id, name, search, maxResult, orderBy} = item;
+    setFavourId(id)
+    setFavouriteName(name);
+    setSearchValue(search);
+    setMaxResult(maxResult);
+    setOrderBy(orderBy)
+    history.push("/result")
+  }
 
   return (
     <Layout>
@@ -128,14 +140,14 @@ const LayoutPage = () => {
         </Header>
         <Content style={{padding: "0 50px", marginTop: 64}}>
           <Route exact={true} path="/">
-            <MainPage onSearch={onSearch} maxResult={maxResult} setMaxResult={setMaxResult} searchValue={searchValue}
+            <MainPage setOrderBy={setOrderBy} setFavouriteName={setFavouriteName} onSearch={onSearch} maxResult={maxResult} setMaxResult={setMaxResult} searchValue={searchValue}
                       setSearchValue={setSearchValue}/>
           </Route>
           <Route exact={true} path="/favourites">
-            <FavouritesPage setSearchValue={setSearchValue}  handleEditMode={handleEditMode}/>
+            <FavouritesPage handleSearch={handleSearch} setSearchValue={setSearchValue}  handleEditMode={handleEditMode}/>
           </Route>
           <Route exact={true} path="/result">
-            <ResultPage onSearch={onSearch} orderBy={orderBy} maxResult={maxResult} showModal={showModal} searchValue={searchValue} setSearchValue={setSearchValue}/>
+            <ResultPage tooltipVisible={tooltipVisible} setTooltipVisible={setTooltipVisible} onSearch={onSearch} orderBy={orderBy} maxResult={maxResult} showModal={showModal} searchValue={searchValue} setSearchValue={setSearchValue}/>
           </Route>
         </Content>
       </>}
@@ -147,7 +159,6 @@ const LayoutPage = () => {
             <label>Запрос:</label>
             <Input className={s.modalInput} onChange={(e) => setSearchValue(e.target.value)} disabled={!editMode} value={searchValue}/>
           </div>
-
           <div className={s.favouriteName}>
             <label className={s.favouriteName__label}><span style={{color: "red"}}>*</span> Название</label>
             <Input className={s.modalInput} value={favouriteName} onChange={(e) => setFavouriteName(e.target.value)}/>

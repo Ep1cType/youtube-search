@@ -10,13 +10,16 @@ import {videosActions} from "../../store/videos/videosActions";
 
 const { Search } = Input;
 
-const MainPage = ({searchValue, setSearchValue, maxResult, setMaxResult, onSearch}) => {
+const MainPage = ({searchValue, setSearchValue, maxResult, setMaxResult, onSearch, setFavouriteName, setOrderBy}) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const {isLoading, isError} = useSelector(state => state.video)
 
   useEffect(() => {
     dispatch(videosActions.setIsError(""));
+    setFavouriteName("");
+    setMaxResult(12);
+    setOrderBy("relevance");
   }, [])
 
   return (

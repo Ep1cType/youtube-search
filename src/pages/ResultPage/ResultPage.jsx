@@ -12,22 +12,22 @@ import {videosActions} from "../../store/videos/videosActions";
 
 const { Search } = Input;
 
-const ResultPage = ({searchValue, setSearchValue, showModal, maxResult, orderBy, onSearch}) => {
+const ResultPage = ({searchValue, setSearchValue, showModal, maxResult, orderBy, onSearch, setTooltipVisible, tooltipVisible}) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {isLoading, isError, videoList, totalCount} = useSelector(state => state.video)
 
 
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
   const [viewType, setViewType] = useState('row');
 
   useEffect(() => {
-    dispatch(videosActions.fetchVideo(searchValue, maxResult, history))
+    dispatch(videosActions.fetchVideo(searchValue, maxResult, orderBy, history))
   }, [])
 
   const suffix = (
     <>
-      <Tooltip color="#ffffff" placement="bottom" visible={visible} title={
+      <Tooltip color="#ffffff" placement="bottom" visible={tooltipVisible} title={
         <>
         <div style={{color: "black"}}>
           Поиск сохранён в разделе «Избранное»
