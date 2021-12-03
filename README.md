@@ -1,7 +1,7 @@
 ***
 **youtube-search** Youtube Video Search Apps.
 
-DEPLOY: youtube-search-2683zl60e-epictype.vercel.app/
+[DEPLOY](http://youtube-search-2683zl60e-epictype.vercel.app/)
 
 ## Getting started
 ***
