@@ -10,16 +10,17 @@ export const authActions = {
     try {
       dispatch(authActions.setIsLoading(true));
       dispatch(authActions.setIsError(""));
-      const {username, password, history} = payload;
+      const {navigate, fromPage, username, password} = payload;
       const response = await AuthService.getUsers();
       const mockUser = response.data.find(user => user.username === username && user.password === password);
       if (mockUser) {
+        debugger;
         localStorage.setItem('token', Math.random().toString(25).substring(2));
         localStorage.setItem('user', mockUser.username)
         console.log(mockUser)
         dispatch(authActions.setUser(mockUser.username))
         dispatch(authActions.setIsAuth(true))
-        history.push('/');
+        navigate(fromPage, { replace: true });
       } else {
         dispatch(authActions.setIsError("Неправильный логин или пароль."))
       }
@@ -34,6 +35,16 @@ export const authActions = {
     localStorage.removeItem('user')
     dispatch(authActions.setUser({}))
     dispatch(authActions.setIsAuth(false))
-    history.push("/login")
+  },
+  checkAuth: (navigation, fromPage) => async (dispatch) => {
+    debugger
+    dispatch(authActions.setIsLoading(true));
+    if (localStorage.getItem("token")) {
+      const user = localStorage.getItem("user");
+      dispatch(authActions.setUser(user));
+      dispatch(authActions.setIsAuth(true));
+    }
+    dispatch(authActions.setIsLoading(false))
+    navigation(fromPage, { replace: true })
   }
 }

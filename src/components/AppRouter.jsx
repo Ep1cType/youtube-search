@@ -1,16 +1,30 @@
 import React from "react";
-import {Redirect, Route, Switch} from "react-router-dom";
-import {routes} from "../router/path";
-import {MAIN_ROUTE} from "../router/pathTypes";
+import {Route, Routes} from "react-router";
+
+import ResultPage from "../pages/ResultPage/ResultPage";
+import FavouritesPage from "../pages/FavouritesPage/FavouritesPage";
+import MainPage from "../pages/MainPage/MainPage";
+import LayoutPage from "../layout/LayoutPage";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import LoginPage from "../pages/LoginPage/LoginPage";
+import RequireAuth from "../router/RequireAuth";
 
 const AppRouter = () => {
   return (
-    <Switch>
-      {routes.map(route =>
-        <Route key={route.path} exact={route.exact} path={route.path} component={route.component}/>
-      )}
-      <Redirect to={MAIN_ROUTE} />
-    </Switch>
+    <>
+      <Routes>
+        <Route path="login" element={<LoginPage />} />
+        <Route path="/" element={<RequireAuth>
+          <LayoutPage />
+        </RequireAuth>}>
+          <Route index element={<MainPage />} />
+          <Route path="hello" element={<p>Hello</p>} />
+          <Route path="result" element={<ResultPage />} />
+          <Route path="favourites" element={<FavouritesPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Route>
+      </Routes>
+    </>
   );
 };
 

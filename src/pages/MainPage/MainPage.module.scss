@@ -15,6 +15,16 @@
 .search {
   &__title {
     font-size: 36px;
-    margin-bottom: 40px;
+  }
+  &__input {
+    width: 600px;
+  }
+}
+
+.error {
+  height: 40px;
+  &__value {
+    font-size: 16px;
+    color: #ff605a;
   }
 }

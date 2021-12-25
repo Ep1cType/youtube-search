@@ -1,41 +1,50 @@
-import React, {useEffect} from "react";
-import { Input, Space } from 'antd';
+import React, {useState} from "react";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router";
+import {Input} from "antd";
 
+import s from "./MainPage.module.scss";
 
+const {Search} = Input;
 
-import s from './MainPage.module.scss';
-import {useHistory} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {videosActions} from "../../store/videos/videosActions";
+// props = {searchValue, setSearchValue, maxResult, setMaxResult, onSearch, setFavouriteName, setOrderBy}
 
-const { Search } = Input;
+const MainPage = () => {
+  const navigate = useNavigate();
 
-const MainPage = ({searchValue, setSearchValue, maxResult, setMaxResult, onSearch, setFavouriteName, setOrderBy}) => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const {isLoading, isError} = useSelector(state => state.video)
+  const {isError} = useSelector(state => state.video);
 
-  useEffect(() => {
-    dispatch(videosActions.setIsError(""));
-    setFavouriteName("");
-    setMaxResult(12);
-    setOrderBy("relevance");
-  }, [])
+  const [searchValue, setSearchValue] = useState("");
+
+  const onChange = event => {
+    setSearchValue(event.target.value);
+  };
+
+  const onSearch = () => {
+    navigate(`/result?search_query=${searchValue.toString()}`, {
+      replace: true,
+      state: {
+        max_result: 12,
+        order_by: "relevance"
+      }
+    });
+  };
 
   return (
-    <div className={s.mainPage} >
+    <div className={s.mainPage}>
       <div className={s.mainPage__content}>
         <h1 className={s.search__title}>Поиск видео</h1>
-        {isError && <span>{isError}</span>}
+        <div className={s.error}>
+          {isError && <span className={s.error__value}>{isError}</span>}
+        </div>
         <Search
+          className={s.search__input}
           placeholder="Что хотите посмотреть ?"
           enterButton="Найти"
           size="large"
-          style={{width: '600px'}}
-          onSearch={onSearch}
           value={searchValue}
-          loading={isLoading}
-          onChange={(e) => setSearchValue(e.target.value)}
+          onSearch={onSearch}
+          onChange={(event) => onChange(event)}
         />
       </div>
     </div>
