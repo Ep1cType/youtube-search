@@ -22,6 +22,7 @@ const FavouritesPage = () => {
   const [orderBy, setOrderBy] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [nameFav, setNameFav] = useState("");
+  const [error,setError] = useState("");
 
   // useEffect(() => {
   // if(!favouriteList.length) {
@@ -33,9 +34,13 @@ const FavouritesPage = () => {
   useEffect(() => {
     const favourites = localStorage.getItem("favourites");
     const favouriteList = JSON.parse(favourites);
-    const userFavouriteList = favouriteList.filter(favourite => favourite.author === "admin");
-    if (userFavouriteList) {
-      setFavouriteList(userFavouriteList);
+    if (favouriteList) {
+      const userFavouriteList = favouriteList.filter(favourite => favourite.author === "admin");
+      if (userFavouriteList) {
+        setFavouriteList(userFavouriteList);
+      }
+    } else {
+      setError("Ошибка загрузки")
     }
   }, []);
 
@@ -70,33 +75,38 @@ const FavouritesPage = () => {
           <div className={s.favouritesPage__header}>
             <h2 className={s.header__title}>Избранное</h2>
           </div>
-          <List
-            size="large"
-            className={s.favouritesList}
-            dataSource={favouriteList}
-            renderItem={item =>
-              <List.Item
-                className={s.favouritesItem}
-                style={{backgroundColor: "white"}}
-                actions={
-                  [<span
-                    className={s.favouritesItem__change}
-                    // onClick={() => handleEditMode(item)}
-                    key="edit"
-                    onClick={() => onModalOpen(item)}
-                  >
+          {favouriteList
+            ?
+            <List
+              size="large"
+              className={s.favouritesList}
+              dataSource={favouriteList}
+              renderItem={item =>
+                <List.Item
+                  className={s.favouritesItem}
+                  style={{backgroundColor: "white"}}
+                  actions={
+                    [<span
+                      className={s.favouritesItem__change}
+                      // onClick={() => handleEditMode(item)}
+                      key="edit"
+                      onClick={() => onModalOpen(item)}
+                    >
                   Изменить
                 </span>,
-                    <span
-                      // onClick={() => handleDelete(item.id)}
-                      className={s.favouritesItem__delete}
-                      key="delete"
-                    >Удалить
+                      <span
+                        // onClick={() => handleDelete(item.id)}
+                        className={s.favouritesItem__delete}
+                        key="delete"
+                      >Удалить
                   </span>]}>
-                {/*<span className={s.favouritesItem__name} onClick={() => handleSearch(item)}>{item.name}</span>*/}
-              </List.Item>
-            }
-          />
+                  {/*<span className={s.favouritesItem__name} onClick={() => handleSearch(item)}>{item.name}</span>*/}
+                </List.Item>
+              }
+            />
+            :
+            <div>Ничего не найдено</div>
+          }
         </div>
       </div>
       <ModalWindow
