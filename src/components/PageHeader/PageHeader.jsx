@@ -12,7 +12,7 @@ import logo from "../../assets/icons/sibdev-logo.svg";
 const {Header} = Layout;
 
 const PageHeader = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {pathname} = useLocation();
 
@@ -20,7 +20,7 @@ const PageHeader = () => {
 
   const handleRoute = (route) => {
     return () => {
-      navigate(route)
+      navigate(route);
     };
   };
 
@@ -30,18 +30,26 @@ const PageHeader = () => {
     };
   };
 
+  //header style style={{display: "flex", backgroundColor: "#ffffff", justifyContent: "space-between", padding: '0 300px'}}
+
   return (
-    <Header style={{display: "flex", backgroundColor: "#ffffff", justifyContent: "space-between", padding: '0 300px'}}>
-      <div style={{display: "flex"}}>
-        <img src={logo} alt="Sibdev"/>
-        <Menu theme="white" mode="horizontal" defaultSelectedKeys={[`${selectedKey}`]}>
-          <Menu.Item key="/" onClick={handleRoute("/")}>Поиск</Menu.Item>
-          <Menu.Item key="/favourites" onClick={handleRoute("/favourites")}>Избранное</Menu.Item>
-        </Menu>
-      </div>
-      <Menu theme="white" mode="horizontal">
-        <Menu.Item onClick={handleExit()} key="1">Выйти</Menu.Item>
+    <Header style={{display: "flex", alignItems: "center", width: "100%", backgroundColor: "#ffffff"}}>
+      {/*<div style={{display: "flex"}}>*/}
+      <img src={logo} alt="Sibdev" style={{
+        height: "50px",
+        float: "left",
+      }}/>
+      <Menu style={{width: "100%"}} theme="white" mode={"horizontal"} defaultSelectedKeys={[`${selectedKey}`]}>
+        {/*<div>*/}
+        <Menu.Item key="/" onClick={handleRoute("/")}>Поиск</Menu.Item>
+        <Menu.Item key="/favourites" onClick={handleRoute("/favourites")}>Избранное</Menu.Item>
+        {/*</div>*/}
+        <Menu.Item style={{marginLeft: "auto"}} onClick={handleExit()} key="1">Выйти</Menu.Item>
       </Menu>
+      {/*</div>*/}
+      {/*<Menu theme="white" mode="horizontal">*/}
+      {/*  <Menu.Item onClick={handleExit()} key="1">Выйти</Menu.Item>*/}
+      {/*</Menu>*/}
     </Header>
   );
 };

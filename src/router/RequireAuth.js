@@ -7,6 +7,7 @@ import {authActions} from "../store/auth/authActions";
 const RequireAuth = ({children}) => {
   const isAuth = useSelector(state => state.auth.isAuth);
   const location = useLocation();
+  const dispatch = useDispatch();
   const navigation = useNavigate();
   debugger;
 
