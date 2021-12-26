@@ -38,7 +38,7 @@ const MainPage = () => {
           {isError && <span className={s.error__value}>{isError}</span>}
         </div>
         <Search
-          className={s.search__input}
+          // className={s.search__input}
           placeholder="Что хотите посмотреть ?"
           enterButton="Найти"
           size="large"
