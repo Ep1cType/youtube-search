@@ -11,6 +11,18 @@ const RequireAuth = ({children}) => {
   const navigation = useNavigate();
   debugger;
 
+  useEffect(() => {
+    debugger;
+    const token = localStorage.getItem("token");
+    if (token) {
+      const user = localStorage.getItem("user");
+      dispatch(authActions.setUser(user));
+      dispatch(authActions.setIsAuth(true));
+    }
+  }, [])
+
+
+
   if (!isAuth) {
     return <Navigate to="login" state={{from: location}}/>;
   }

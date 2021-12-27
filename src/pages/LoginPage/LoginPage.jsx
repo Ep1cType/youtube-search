@@ -21,6 +21,23 @@ const LoginPage = () => {
   const {isLoading, isAuth, isError} = useSelector(state => state.auth);
   const fromPage = location.state?.from?.pathname || "/";
 
+  // const location = useLocation();
+  // const dispatch = useDispatch();
+  // const navigation = useNavigate();
+  debugger;
+
+  // useEffect(() => {
+  //   debugger;
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     const user = localStorage.getItem("user");
+  //     dispatch(authActions.setUser(user));
+  //     dispatch(authActions.setIsAuth(true));
+  //     navigate(fromPage, {replace: true});
+  //   }
+  // }, [])
+
+
   useEffect(() => {
     dispatch(videosActions.setIsError(""));
   }, []);
