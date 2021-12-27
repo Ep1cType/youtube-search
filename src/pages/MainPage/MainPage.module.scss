@@ -9,15 +9,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 600px;
   }
 }
 
 .search {
   &__title {
     font-size: 36px;
-  }
-  &__input {
-    width: 600px;
   }
 }
 

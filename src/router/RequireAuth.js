@@ -7,19 +7,18 @@ import {authActions} from "../store/auth/authActions";
 const RequireAuth = ({children}) => {
   const isAuth = useSelector(state => state.auth.isAuth);
   const location = useLocation();
-  const dispatch = useDispatch();
-  const navigation = useNavigate();
-  debugger;
+  // const dispatch = useDispatch();
+  // const navigation = useNavigate();
 
-  useEffect(() => {
-    debugger;
-    const token = localStorage.getItem("token");
-    if (token) {
-      const user = localStorage.getItem("user");
-      dispatch(authActions.setUser(user));
-      dispatch(authActions.setIsAuth(true));
-    }
-  }, [])
+  // useEffect(() => {
+  //   debugger;
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     const user = localStorage.getItem("user");
+  //     dispatch(authActions.setUser(user));
+  //     dispatch(authActions.setIsAuth(true));
+  //   }
+  // }, [])
 
 
 

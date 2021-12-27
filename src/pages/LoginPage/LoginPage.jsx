@@ -1,11 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 
 import s from "./LoginPage.module.scss";
 
 import logo from "../../assets/icons/sibdev-logo.svg";
 
 import {Input, Form, Button, Checkbox} from "antd";
-// import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "../../store/auth/authActions";
 import {videosActions} from "../../store/videos/videosActions";
@@ -14,48 +13,35 @@ import {useNavigate} from "react-router";
 import AuthService from "../../services/AuthService";
 
 const LoginPage = () => {
-  // const history = useHistory();
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {isLoading, isAuth, isError} = useSelector(state => state.auth);
-  const fromPage = location.state?.from?.pathname || "/";
 
-  // const location = useLocation();
-  // const dispatch = useDispatch();
-  // const navigation = useNavigate();
-  debugger;
+  const {isLoading, isAuth} = useSelector(state => state.auth);
 
-  // useEffect(() => {
-  //   debugger;
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     const user = localStorage.getItem("user");
-  //     dispatch(authActions.setUser(user));
-  //     dispatch(authActions.setIsAuth(true));
-  //     navigate(fromPage, {replace: true});
-  //   }
-  // }, [])
+  const fromPage = location.state?.from?.pathname + location.state?.from?.search || "/";
 
+  const [isError, setIsError] = useState("");
 
   useEffect(() => {
-    dispatch(videosActions.setIsError(""));
+    setIsError("");
   }, []);
 
   const onFinish = async (values) => {
+    setIsError("");
     const {username, password} = values;
     const response = await AuthService.getUsers();
     const mockUser = response.data.find(user => user.username === username && user.password === password);
     if (mockUser) {
       localStorage.setItem('token', Math.random().toString(25).substring(2));
-      localStorage.setItem('user', mockUser.username)
-      console.log(mockUser)
-      dispatch(authActions.setUser(mockUser.username))
-      dispatch(authActions.setIsAuth(true))
+      localStorage.setItem('user', mockUser.username);
+      dispatch(authActions.setUser(mockUser.username));
+      dispatch(authActions.setIsAuth(true));
       navigate(fromPage, {replace: true});
-      // dispatch(authActions.login({navigate, fromPage, username, password}));
+    } else {
+      setIsError("Пользователь не найден.");
     }
-  }
+  };
 
   return (
     <div className={s.loginPage}>

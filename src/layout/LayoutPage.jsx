@@ -22,22 +22,22 @@ const {Option} = Select;
 
 const LayoutPage = () => {
   // const history = useHistory();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
 
-  const {isLoading, isAuth, isError, user} = useSelector(state => state.auth);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const [searchValue, setSearchValue] = useState("");
-  const [maxResult, setMaxResult] = useState(12);
-  const [favourId, setFavourId] = useState("");
-  const [favouriteName, setFavouriteName] = useState("");
-  const [modalError, setModalError] = useState("");
-  const [orderBy, setOrderBy] = useState("relevance");
-  const [editMode, setEditMode] = useState(false);
-  const [tooltipVisible, setTooltipVisible] = useState(false);
-
-  const [showSearch, setShowSearch] = useState("");
+  // const {isLoading, isAuth, isError, user} = useSelector(state => state.auth);
+  // const [isModalVisible, setIsModalVisible] = useState(false);
+  //
+  // const [searchValue, setSearchValue] = useState("");
+  // const [maxResult, setMaxResult] = useState(12);
+  // const [favourId, setFavourId] = useState("");
+  // const [favouriteName, setFavouriteName] = useState("");
+  // const [modalError, setModalError] = useState("");
+  // const [orderBy, setOrderBy] = useState("relevance");
+  // const [editMode, setEditMode] = useState(false);
+  // const [tooltipVisible, setTooltipVisible] = useState(false);
+  //
+  // const [showSearch, setShowSearch] = useState("");
 
   // useEffect(() => {
   //   if (localStorage.getItem("token")) {
@@ -50,89 +50,89 @@ const LayoutPage = () => {
   //   }
   // }, []);
 
-  const showModal = () => {
-    debugger;
-    setIsModalVisible(true);
-  };
-
-  const handleEditMode = (item) => {
-    debugger;
-    const {author, id, name, search, maxResult, orderBy} = item;
-    setFavourId(id);
-    setFavouriteName(name);
-    setSearchValue(search);
-    setMaxResult(maxResult);
-    setOrderBy(orderBy);
-    setEditMode(true);
-    setIsModalVisible(true);
-  };
-
-  const handleEditOk = () => {
-    setFavouriteName("");
-    setMaxResult(12);
-    setOrderBy("relevance");
-    dispatch(videosActions.editFavour({
-      author: user,
-      id: favourId,
-      name: favouriteName,
-      search: searchValue,
-      maxResult,
-      orderBy
-    }, favourId));
-    setEditMode(false);
-    setIsModalVisible(false);
-  };
-
-  const handleOk = () => {
-    setModalError("");
-    if (favouriteName) {
-      const favourite = {
-        author: user,
-        id: Math.random().toString(20).substr(8),
-        name: favouriteName,
-        search: searchValue,
-        maxResult,
-        orderBy
-      };
-      setIsModalVisible(false);
-      setTooltipVisible(true);
-      // setTimeout(() => {
-      //   setTooltipVisible(false);
-      // }, 3000);
-      setFavouriteName("");
-      setMaxResult(12);
-      dispatch(videosActions.createFavourite(favourite));
-    } else {
-      setModalError("Введите название");
-    }
-  };
-  const handleCancel = () => {
-    setModalError("");
-    setEditMode(false);
-    setIsModalVisible(false);
-    setMaxResult(12);
-    setFavouriteName("");
-  };
-
-  const maxResultChange = (value) => {
-    setMaxResult(value);
-  };
-
-  const onSearch = value => {
-    setShowSearch(searchValue);
-    dispatch(videosActions.fetchVideo(value, maxResult, orderBy, navigate));
-  };
-
-  const handleSearch = (item) => {
-    const {id, name, search, maxResult, orderBy} = item;
-    setFavourId(id);
-    setFavouriteName(name);
-    setSearchValue(search);
-    setMaxResult(maxResult);
-    setOrderBy(orderBy);
-    // history.push("/result");
-    navigate("/result");
-  };
+  // const showModal = () => {
+  //   debugger;
+  //   setIsModalVisible(true);
+  // };
+  //
+  // const handleEditMode = (item) => {
+  //   debugger;
+  //   const {author, id, name, search, maxResult, orderBy} = item;
+  //   setFavourId(id);
+  //   setFavouriteName(name);
+  //   setSearchValue(search);
+  //   setMaxResult(maxResult);
+  //   setOrderBy(orderBy);
+  //   setEditMode(true);
+  //   setIsModalVisible(true);
+  // };
+  //
+  // const handleEditOk = () => {
+  //   setFavouriteName("");
+  //   setMaxResult(12);
+  //   setOrderBy("relevance");
+  //   dispatch(videosActions.editFavour({
+  //     author: user,
+  //     id: favourId,
+  //     name: favouriteName,
+  //     search: searchValue,
+  //     maxResult,
+  //     orderBy
+  //   }, favourId));
+  //   setEditMode(false);
+  //   setIsModalVisible(false);
+  // };
+  //
+  // const handleOk = () => {
+  //   setModalError("");
+  //   if (favouriteName) {
+  //     const favourite = {
+  //       author: user,
+  //       id: Math.random().toString(20).substr(8),
+  //       name: favouriteName,
+  //       search: searchValue,
+  //       maxResult,
+  //       orderBy
+  //     };
+  //     setIsModalVisible(false);
+  //     setTooltipVisible(true);
+  //     // setTimeout(() => {
+  //     //   setTooltipVisible(false);
+  //     // }, 3000);
+  //     setFavouriteName("");
+  //     setMaxResult(12);
+  //     dispatch(videosActions.createFavourite(favourite));
+  //   } else {
+  //     setModalError("Введите название");
+  //   }
+  // };
+  // const handleCancel = () => {
+  //   setModalError("");
+  //   setEditMode(false);
+  //   setIsModalVisible(false);
+  //   setMaxResult(12);
+  //   setFavouriteName("");
+  // };
+  //
+  // const maxResultChange = (value) => {
+  //   setMaxResult(value);
+  // };
+  //
+  // const onSearch = value => {
+  //   setShowSearch(searchValue);
+  //   dispatch(videosActions.fetchVideo(value, maxResult, orderBy, navigate));
+  // };
+  //
+  // const handleSearch = (item) => {
+  //   const {id, name, search, maxResult, orderBy} = item;
+  //   setFavourId(id);
+  //   setFavouriteName(name);
+  //   setSearchValue(search);
+  //   setMaxResult(maxResult);
+  //   setOrderBy(orderBy);
+  //   // history.push("/result");
+  //   navigate("/result");
+  // };
 
 
   return (
