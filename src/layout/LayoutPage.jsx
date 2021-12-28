@@ -23,7 +23,7 @@ const {Option} = Select;
 const LayoutPage = () => {
   // const history = useHistory();
   // const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // const {isLoading, isAuth, isError, user} = useSelector(state => state.auth);
   // const [isModalVisible, setIsModalVisible] = useState(false);

@@ -1,13 +1,14 @@
 .modalSlider {
+  width: 100%;
   &__label {
 
   }
   &__content {
     display: flex;
-    width: 430px;
+    //width: 430px;
     justify-content: space-between;
   }
   &__slider {
-    width: 310px;
+    width: 350px;
   }
 }

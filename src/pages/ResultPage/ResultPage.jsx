@@ -12,6 +12,7 @@ import {useLocation, useNavigate} from "react-router";
 import {useSearchParams} from "react-router-dom";
 import VideoService from "../../services/VideoService";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
+import Loader from "../../components/Loader/Loader";
 
 const {Search} = Input;
 
@@ -176,8 +177,8 @@ const ResultPage = () => {
               ))}
             </VideoList>
             :
-            <div>
-              LOADING...
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <Loader />
             </div>
           }
         </div>

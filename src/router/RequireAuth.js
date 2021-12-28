@@ -1,26 +1,20 @@
 import React, {useEffect} from "react";
-import {Navigate, useNavigate} from "react-router";
+import {Navigate} from "react-router";
 import {useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "../store/auth/authActions";
 
 const RequireAuth = ({children}) => {
-  const isAuth = useSelector(state => state.auth.isAuth);
   const location = useLocation();
-  // const dispatch = useDispatch();
-  // const navigation = useNavigate();
+  const dispatch = useDispatch();
+  const isAuth = useSelector(state => state.auth.isAuth);
 
-  // useEffect(() => {
-  //   debugger;
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     const user = localStorage.getItem("user");
-  //     dispatch(authActions.setUser(user));
-  //     dispatch(authActions.setIsAuth(true));
-  //   }
-  // }, [])
-
-
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      dispatch(authActions.setIsAuth(false));
+    }
+  }, [])
 
   if (!isAuth) {
     return <Navigate to="login" state={{from: location}}/>;

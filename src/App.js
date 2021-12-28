@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import AppRouter from "./components/AppRouter";
 import {useDispatch} from "react-redux";
 import {authActions} from "./store/auth/authActions";
+import Loader from "./components/Loader/Loader";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,8 +35,8 @@ function App() {
 
   if (isLoading) {
     return (
-      <div>
-        LOADING...
+      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <Loader />
       </div>
     );
   }

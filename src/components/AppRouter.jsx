@@ -11,20 +11,29 @@ import RequireAuth from "../router/RequireAuth";
 
 const AppRouter = () => {
   return (
-    <>
-      <Routes>
-        <Route path="login" element={<LoginPage/>}/>
-        <Route path="/" element={<RequireAuth>
-          <LayoutPage/>
-        </RequireAuth>}>
-          <Route index element={<MainPage/>}/>
-          <Route path="hello" element={<p>Hello</p>}/>
-          <Route path="result" element={<ResultPage/>}/>
-          <Route path="favourites" element={<FavouritesPage/>}/>
-          <Route path="*" element={<ErrorPage/>}/>
-        </Route>
-      </Routes>
-    </>
+    <Routes>
+      <Route path="login" element={<LoginPage/>}/>
+      <Route path="/" element={<RequireAuth>
+        <LayoutPage/>
+      </RequireAuth>}>
+        <Route index element={<MainPage/>}/>
+        <Route path="result" element={
+          <RequireAuth>
+            <ResultPage/>
+          </RequireAuth>
+        }/>
+        <Route path="favourites" element={
+          <RequireAuth>
+            <FavouritesPage/>
+          </RequireAuth>
+        }/>
+        <Route path="*" element={
+          <RequireAuth>
+            <ErrorPage/>
+          </RequireAuth>
+        }/>
+      </Route>
+    </Routes>
   );
 };
 
