@@ -49,21 +49,23 @@ const ModalWindow = (
     isModalVisible,
     isEditMode,
     onModalCancel,
+    onModalSubmit,
     searchValue,
     setSearchValue,
     maxResult,
     setMaxResult,
     favouriteName,
     setFavouriteName,
-    onModalSubmit,
     orderBy,
-    setOrderBy
+    setOrderBy,
   }
 ) => {
   const location = useLocation();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log("Параметры в модалке", searchParams.get("max_result"), searchParams.get("search_query"))
+  // console.log("Параметры в модалке", searchParams.get("max_result"), searchParams.get("search_query"))
+
+  console.log(onModalSubmit)
 
   const [vis, setVis] = useState(false);
 
@@ -82,7 +84,7 @@ const ModalWindow = (
       onOk={onModalSubmit}
       onCancel={onModalCancel}
       footer={[
-        <ModalFooter cancelText={cancelText} okText={okText} />
+        <ModalFooter onModalCancel={onModalCancel} onModalSubmit={onModalSubmit} cancelText={cancelText} okText={okText} />
       ]}
     >
       <div className={s.modal__container}>

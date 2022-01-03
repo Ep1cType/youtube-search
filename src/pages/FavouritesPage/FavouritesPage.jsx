@@ -5,7 +5,7 @@ import s from "./FavouritesPage.module.scss";
 import {Divider, List} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {videosActions} from "../../store/videos/videosActions";
-import {useLocation, useOutletContext} from "react-router";
+import {useLocation, useNavigate, useOutletContext} from "react-router";
 import {Link} from "react-router-dom";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 
@@ -15,8 +15,10 @@ const FavouritesPage = () => {
   const {user} = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const [favouriteList, setFavouriteList] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [maxResults, setMaxResults] = useState("");
   const [orderBy, setOrderBy] = useState("");
@@ -32,23 +34,34 @@ const FavouritesPage = () => {
   // }, []);
 
   useEffect(() => {
+    debugger;
+    setIsLoading(true)
     const favourites = localStorage.getItem("favourites");
     const favouriteList = JSON.parse(favourites);
     if (favouriteList) {
-      const userFavouriteList = favouriteList.filter(favourite => favourite.author === "admin");
+      // setFavouriteList(favouriteList)
+      const userFavouriteList = favouriteList.filter(favourite => favourite.userName === user);
       if (userFavouriteList) {
         setFavouriteList(userFavouriteList);
       }
+      setIsLoading(false)
     } else {
       setError("Ошибка загрузки")
     }
   }, []);
 
+  const onSearch = (item) => {
+    navigate(`/result?search_query=${item.searchResult}&max_result=${item.maxResults}&order_by=${item.orderBy}`, {
+      replace: true,
+    });
+  };
+
   const onModalOpen = (item) => {
-    setSearchValue(item.search)
-    setMaxResults(item.maxResult)
+    debugger;
+    setSearchValue(item.searchResult)
+    setMaxResults(item.maxResults)
     setOrderBy(item.orderBy)
-    setNameFav(item.name)
+    setNameFav(item.favouriteName)
     setIsModalVisible(true)
   }
 
@@ -60,6 +73,8 @@ const FavouritesPage = () => {
     setNameFav("")
   }
 
+
+
   const onModalSubmit = () => {
 
   }
@@ -67,6 +82,12 @@ const FavouritesPage = () => {
   const onFavouriteDelete = (id) => {
     dispatch(videosActions.deleteFavour(id));
   };
+
+  if (isLoading) {
+    return (
+      <h2>Loading...</h2>
+    )
+  }
 
   return (
     <>
@@ -100,7 +121,7 @@ const FavouritesPage = () => {
                         key="delete"
                       >Удалить
                   </span>]}>
-                  {/*<span className={s.favouritesItem__name} onClick={() => handleSearch(item)}>{item.name}</span>*/}
+                  <span className={s.favouritesItem__name} onClick={() => onSearch(item)} >{item.favouriteName}</span>
                 </List.Item>
               }
             />

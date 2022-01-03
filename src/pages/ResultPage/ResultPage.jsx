@@ -24,6 +24,7 @@ const ResultPage = () => {
   const location = useLocation();
 
   const {videoList, totalCount} = useSelector(state => state.video);
+  const {user} = useSelector(state => state.auth);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -92,10 +93,26 @@ const ResultPage = () => {
   };
 
   const onModalSubmit = () => {
-
+    debugger;
+    const favourites = localStorage.getItem("favourites") || '[]';
+    const favourite = {
+      id: Math.random().toString(36).substr(2, 9),
+      userName: user,
+      favouriteName,
+      orderBy,
+      searchResult,
+      maxResults,
+    }
+    const json = JSON.parse(favourites);
+    json.push(favourite);
+    dispatch(videosActions.setFavouriteList(json))
+    localStorage.setItem("favourites", JSON.stringify(json))
+    console.log(favourite)
+    setIsModalVisible(false);
   }
 
   const onModalCancel = () => {
+    debugger;
     setIsModalVisible(false)
   }
 
